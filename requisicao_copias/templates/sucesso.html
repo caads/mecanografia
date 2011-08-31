@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+    <center>{{formulario}}</center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <center>
+        <strong>
+		    <p>
+		        {{mensagem}}
+		        <br><br>
+		    </p>		
+	    </strong>	
+	    <p>
+	        <input type="button" value="Voltar" onclick="location.href={{link}};">
+	    </p>
+	</center>
+{% endblock conteudo %}
+
+

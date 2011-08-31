@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+    <center> Setor </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <br><br>
+    <table border="1" cellppading="0" cellspacing="0" align="center" width="100%">                     
+        <tr>
+            <th>Código:</th>
+                <th>Descrição:</th>                
+            </tr>
+        {% for c in consulta%}
+            <tr>
+                <td> <a href="/editar_setor/{{c.id}}/">{{c.id}}</a></td>                
+                <td>{{c.descricao}}</td>                
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br>
+    
+    <input type="button" value="Novo" onclick="location.href=/cadastrar_setor/">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="Voltar" onclick="history.go(-1)">
+{% endblock conteudo %}
+
+
+
+
+

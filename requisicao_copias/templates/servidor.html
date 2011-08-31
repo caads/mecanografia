@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.nome.value=elemento.nome.value.toUpperCase();
+        }
+        function desabilitar(valor){
+            var elemento=document.form;
+            if (valor == "todos"){
+                document.getElementById("siape").value = '';
+                document.getElementById("siape").disabled = true;
+                document.getElementById("nome").value = '';
+                document.getElementById("nome").disabled = true;
+                document.getElementById("status").value = 'todos';
+            }
+            else if (valor == "siape"){
+                    document.getElementById("siape").disabled = false;
+                    document.getElementById("nome").value = '';
+                    document.getElementById("nome").disabled = true;
+                    document.getElementById("status").value = 'siape';
+            }
+            else if (valor == "nome"){
+                    document.getElementById("nome").disabled = false;
+                    document.getElementById("siape").value = '';
+                    document.getElementById("siape").disabled = true;
+                    document.getElementById("status").value = 'nome';
+            }
+        }
+        function num(dom){
+    	    dom.value=dom.value.replace(/\D/g,'');
+        }   
+           
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Servidor </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <br><br>
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+        <table>
+            <fildset>                            
+                <tr><td>&nbsp;</td></tr>                            
+                 <tr>
+                    <th>Pesquisar por:</th>
+                </tr>
+                <tr><td>&nbsp;{{form.errors}}</td></tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="todos" name="filtro" onclick="desabilitar(this.value);"> Todos
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="siape" name="filtro" onclick="desabilitar(this.value);"> SIAPE
+                    </td> 
+                    <td>
+                        <input type="text" name="siape" onkeyup="num(this);" id="siape" maxlength="10">
+                    </td>
+                </tr>
+                <tr>                    
+                    <td>
+                        <input type="radio" value="nome" name="filtro" onclick="desabilitar(this.value);"> Nome
+                    </td>
+                    <td>
+                        <input type="text" name="nome" onkeyup="maiuscula(this.value);" id="nome" maxlength="30">
+                    </td>
+                </tr>
+            </fieldset>
+            <tr><td>&nbsp;<input type="hidden" name="status" id="status"></td></tr>
+            <tr>
+                <td><input type="submit" value="Buscar"/></td>
+	        </tr>
+	        <tr><td>&nbsp;</td></tr>
+	        <tr><td>&nbsp;</td></tr>
+	        <tr><td>&nbsp;</td></tr>
+	    </table>
+    </form>
+    {%if mensagem == '' and contador == 0%}
+        <ul class="errorlist">
+            <li>Nenhum resultado foi encontrado.</li>
+        </ul>
+     {%endif%}
+     {%if mensagem != ''%}
+        <ul class="errorlist">
+            <li>{{mensagem}}</li>
+        </ul>
+    {%endif%}
+    {%if contador > 0%}
+    <table border="1" cellppading="0" cellspacing="0" align="center" width="100%"> 
+        <center>
+            <h3>Resultado da Consulta</h3>        
+            <p>Total de {{contador}} resultados.</p>
+        </center>
+        <tr>
+            <th>SIAPE:</th>
+            <th>Nome:</th>                
+        </tr>
+        {% for c in consulta%}
+            <tr>
+                <td> <a href="/editar_servidor/{{c.siape}}/">{{c.siape}}</a></td>                
+                <td>{{c.nome}}</td>                
+            </tr>
+        {% endfor %}
+    </table>
+    {%endif%}
+    <br><br>
+    
+    <input type="button" value="Novo" onclick="location.href=/cadastrar_servidor/">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="Voltar" onclick="history.go(-1)">
+{% endblock conteudo %}
+
+
+
+
+
