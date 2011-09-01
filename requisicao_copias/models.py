@@ -36,6 +36,10 @@ class Servidor(models.Model):
     email = models.EmailField("E-mail", max_length=50)
     
     
+class VincularSetor(models.Model):
+    siape = models.ForeignKey('Servidor')
+    setor = models.ForeignKey('Setor')
+
 
 #Formularios
 class MateriaisForm(ModelForm):
@@ -138,3 +142,16 @@ class ServidorForm(ModelForm):
             
     class Meta:
         model = Servidor
+        
+        
+        
+class VincularSetorForm(forms.ModelForm): 
+    def __init__(self, *args, **kwargs): 
+        super(VincularSetorForm, self).__init__(*args, **kwargs)
+        consulta = Setor.objects.all()
+        setor = ['setor']
+        for s in setor:
+            self.fields[s].widget = forms.CheckboxSelectMultiple(choices=('1','Direção Geral'))
+        
+    class Meta:
+        model = VincularSetor

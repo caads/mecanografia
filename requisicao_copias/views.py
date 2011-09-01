@@ -2,7 +2,7 @@
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from mecanografia.requisicao_copias.models import Materiais, MateriaisForm, Setor, SetorForm, Servidor, ServidorForm
+from mecanografia.requisicao_copias.models import Materiais, MateriaisForm, Setor, SetorForm, Servidor, ServidorForm, VincularSetor
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, get_connection, EmailMessage
 from reportlab.pdfgen import canvas
@@ -146,7 +146,9 @@ def cadastrar_servidor(request):
             mensagem = 'Servidor cadastrado com sucesso.'
             formulario = 'Cadastro de Servidor'
             voltar = '/servidor/'
-            return render_to_response('sucesso.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario})
+            vs = VincularSetor()
+            setor = Setor.objects.all().order_by('descricao')
+            return render_to_response('vincular_setor.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario, 'siape':request.POST['siape'], 'form':vs, 'setor':setor})
         else:
             erro = True
             mensagem_erro = 'Campo Obrigatório'
@@ -212,3 +214,20 @@ def excluir_servidor(request, codigo):
     voltar = '/servidor/'
     return render_to_response('sucesso.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario})
     
+#vincular servidor a setor
+@login_required
+def vincular_setor(request):
+    if request.POST:
+        dados_formulario = request.POST.items()
+        for campo in dados_formulario:
+            if campo[0].count('setor') == 1:
+                f = VincularSetor(siape_id=request.POST['siape'], setor_id=campo[1])
+                f.save()
+        mensagem = 'Servidor cadastrado com sucesso.'
+        formulario = 'Cadastro de Servidor'
+        voltar = '/servidor/'
+        return render_to_response('sucesso.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario})        
+    else:
+        f = VincularSetor()
+        return render_to_response('vincular_servidor.html', {'user':request.user, 'form':f})
+

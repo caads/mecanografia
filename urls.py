@@ -21,12 +21,14 @@ urlpatterns = patterns('',
     url(r'^editar_setor/(?P<codigo>\d+)', 'mecanografia.requisicao_copias.views.editar_setor', name='editar_setor'),
     url(r'^excluir_setor/(?P<codigo>\d+)', 'mecanografia.requisicao_copias.views.excluir_setor', name='excluir_setor'),
     
+    
+    url(r'^vincular_setor/', 'mecanografia.requisicao_copias.views.vincular_setor', name='vincular_setor'),
+    
+        
     url(r'^servidor/', 'mecanografia.requisicao_copias.views.servidor', name='servidor'),
     url(r'^cadastrar_servidor/', 'mecanografia.requisicao_copias.views.cadastrar_servidor', name='cadastrar_servidor'),
     url(r'^editar_servidor/(?P<codigo>\d+)', 'mecanografia.requisicao_copias.views.editar_servidor', name='editar_servidor'),
     url(r'^excluir_servidor/(?P<codigo>\d+)', 'mecanografia.requisicao_copias.views.excluir_servidor', name='excluir_servidor'),    
-    
-    
     url(r'^media/(.*)$', 'django.views.static.serve', 
         {'document_root': settings.MEDIA_ROOT}),
     (r'^login/', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
