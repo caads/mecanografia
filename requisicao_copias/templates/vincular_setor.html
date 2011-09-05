@@ -25,14 +25,21 @@
                             </ul>
                     	{% endif %}
                     </th>
-                </tr>
-                {% for s in setor %}
-                    <tr>
-                        <td colspan="2"> <input type="checkbox" name=setor{{s.id}} value={{s.id}}>{{s.descricao}}</td>
+                </tr>                
+                {% for s in setor %}                    
+                    <tr>                        
+                            {%if s.id in cadastrados%}
+                                <td colspan="2"> <input type="checkbox" name=setor{{s.id}} value={{s.id}} CHECKED>{{s.descricao}}</td>
+                            {%else%}
+                                <td colspan="2"> <input type="checkbox" name=setor{{s.id}} value={{s.id}}>{{s.descricao}}</td>
+                            {%endif%}               
                     </tr>
-                {%endfor%}
+                {%endfor%}                
                 <tr>
-                    <td>&nbsp;<input type="hidden" name="siape" value={{siape}}></td>
+                    <td>
+                        &nbsp;
+                        <input type="hidden" name="siape" value={{siape}}>
+                        <input type="hidden" name="formulario" value={{formulario}}></td>
 	            </tr>
 	            <tr>
                     <td colspan="2">

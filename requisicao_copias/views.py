@@ -143,12 +143,10 @@ def cadastrar_servidor(request):
         f = ServidorForm(request.POST)
         if f.is_valid():
             f.save()
-            mensagem = 'Servidor cadastrado com sucesso.'
-            formulario = 'Cadastro de Servidor'
-            voltar = '/servidor/'
             vs = VincularSetor()
             setor = Setor.objects.all().order_by('descricao')
-            return render_to_response('vincular_setor.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario, 'siape':request.POST['siape'], 'form':vs, 'setor':setor})
+            formulario = "cadastro"
+            return render_to_response('vincular_setor.html', {'user':request.user, 'siape':request.POST['siape'], 'form':vs, 'setor':setor, 'formulario':formulario})
         else:
             erro = True
             mensagem_erro = 'Campo Obrigatório'
@@ -191,15 +189,22 @@ def editar_servidor(request, codigo):
     if request.POST:
         if f.is_valid():
             servidor = f.save()
-            mensagem = 'Servidor alterado com sucesso.'
-            formulario = 'Editar Servidor'
-            voltar = '/servidor/'
-            return render_to_response('sucesso.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario})
-        else:
+            vs = VincularSetor()
+            setor = Setor.objects.all().order_by('descricao')
+            consulta_cadastrados = VincularSetor.objects.filter(siape=request.POST['siape'])
+            cadastrados = []            
+            #lista de setores cadastrados, que aparecerão no formulario de vincular setor
+            for i in consulta_cadastrados:
+                cadastrados.append(i.setor_id)
+            formulario = "edicao"
+            return render_to_response('vincular_setor.html', {'user':request.user, 'siape':request.POST['siape'], 'form':vs, 'setor':setor, 'cadastrados':cadastrados, 'formulario':formulario})
+        else:        
+            #se o formulário não passar pela validação, retorna mensagem de erro
             erro = True
             mensagem_erro = 'Campo Obrigatório'
             return render_to_response("editar_servidor.html", {'user':request.user, 'form':f, 'erro': erro, 'mensagem_erro':mensagem_erro})
     else:
+        #se o formulario não foi submetido, chama a página de edição dos dados do servidor selecionado
         codigo = servidor.siape
         f = ServidorForm(instance=servidor)
         return render_to_response('editar_servidor.html', {'form':f, 'codigo':codigo, 'user':request.user})
@@ -218,13 +223,27 @@ def excluir_servidor(request, codigo):
 @login_required
 def vincular_setor(request):
     if request.POST:
+    
+        #pega todos os dados enviados pelo POST
         dados_formulario = request.POST.items()
+        
+        #busca os setores que já estão vinculados ao servidor para atualização
+        cadastrados = VincularSetor.objects.filter(siape=request.POST['siape'])
+        for c in cadastrados:
+            f = VincularSetor(id=c.id, siape_id=c.siape, setor_id=c.setor)
+            f.delete()
+        
+        #vincula o setor ao servidor e retorna página de sucesso
         for campo in dados_formulario:
             if campo[0].count('setor') == 1:
                 f = VincularSetor(siape_id=request.POST['siape'], setor_id=campo[1])
                 f.save()
-        mensagem = 'Servidor cadastrado com sucesso.'
-        formulario = 'Cadastro de Servidor'
+        if request.POST['formulario'] == "cadastro":
+            mensagem = 'Servidor cadastrado com sucesso.'
+            formulario = 'Cadastro de Servidor'
+        else:
+            mensagem = 'Servidor alterado com sucesso.'
+            formulario = 'Editar Servidor'
         voltar = '/servidor/'
         return render_to_response('sucesso.html', {'user':request.user, 'mensagem':mensagem, 'link':voltar, 'formulario':formulario})        
     else:
