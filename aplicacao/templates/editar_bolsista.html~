@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/maskedinput.js"></script>
+    <script type="text/javascript">
+        $.noConflict( )
+        jQuery(function($){
+            $("#id_telefone").mask("(99) 9999-9999");
+            $("#id_celular").mask("(99) 9999-9999");
+            $("#id_data_emissao").mask("99/99/9999");
+            $("#id_cep").mask("99.999-999");
+            $("#id_pis").mask("999.99999.99-9");
+        });
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.nome.value=elemento.nome.value.toUpperCase();
+            elemento.orgao_expedidor.value=elemento.orgao_expedidor.value.toUpperCase();
+            elemento.logradouro.value=elemento.logradouro.value.toUpperCase();
+            elemento.complemento.value=elemento.complemento.value.toUpperCase();
+            elemento.bairro.value=elemento.bairro.value.toUpperCase();
+            elemento.cidade.value=elemento.cidade.value.toUpperCase();
+            elemento.uf.value=elemento.uf.value.toUpperCase();            
+        }
+        function minuscula(valor){
+            var elemento=document.form;
+            elemento.email.value=elemento.email.value.toLowerCase();
+        }
+        function num(dom){
+    	    dom.value=dom.value.replace(/\D/g,'');
+        }        
+    </script>
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Editar Bolsista </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="/editar_bolsista/{{codigo}}" enctype="multipart/form-data" method="post">
+        <table align="center">
+            <fildset>      
+                {{form.as_table}}                      
+                <tr><td>&nbsp;</td></tr>                            
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Alterar"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" value="Excluir" onclick="location.href='/excluir_bolsista/{{codigo}}/'">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" value="Voltar" onclick="history.go(-1)">
+                    </td>
+	            </tr>
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+

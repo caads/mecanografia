@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/maskedinput.js"></script>
+    <script type="text/javascript">
+        $.noConflict( )
+        jQuery(function($){
+            $("#id_inicial").mask("99/99/9999");
+            $("#id_final").mask("99/99/9999");            
+        });
+        function desabilitar(valor){
+            var elemento=document.form;
+            if (valor == "bolsista"){
+                document.getElementById("status").value = 'bolsista';
+            }
+            else if (valor == "inscritos"){
+                    document.getElementById("status").value = 'inscritos';
+        }           
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Relatório de Bolsista</center>
+{% endblock subtitle %}
+{% block conteudo %}
+        <h3>Relatório de Bolsista</h3>
+        <table border="1">
+            <fildset>                            
+                <tr>
+                    <td>Nome</td>
+                    <td>CPF</td>
+                    <td>Bolsa</td>
+                    
+                </tr>
+                {%for e in relatorio%}                            
+                <tr>
+                    <td>{{e.nome}}</td>
+                    <td>{{e.cpf}}</td>
+                    <td>{{e.Bolsa}}</td>
+                    
+                {%endfor%}
+                </tr>
+                
+            </fieldset>
+            
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+

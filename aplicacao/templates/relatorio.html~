@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/maskedinput.js"></script>
+    <script type="text/javascript">
+        $.noConflict( )
+        jQuery(function($){
+            $("#id_inicial").mask("99/99/9999");
+            $("#id_final").mask("99/99/9999");            
+        });
+        function desabilitar(valor){
+            var elemento=document.form;
+            if (valor == "bolsista"){
+                document.getElementById("status").value = 'bolsista';
+            }
+            else if (valor == "inscritos"){
+                    document.getElementById("status").value = 'inscritos';
+        }           
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Relatório </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+        <table>
+            <fildset>                            
+                <tr><td colspan="2">&nbsp;</td></tr>                            
+                 <tr>
+                    <th colspan="2">Selecione o Relatório:</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp;
+                        {%if erro%}
+                            <ul class="errorlist">
+                                <li>                                
+                                    Selecione o relatório, informe a data inicial e a data final para gerar o relatório.
+                                </li>
+                            </ul>
+                        {%endif%}
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="radio" value="bolsista" name="filtro" onclick="desabilitar(this.value);"> Relatório de bolsistas
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="inscritos" name="filtro" onclick="desabilitar(this.value);"> Inscritos por Edital
+                    </td>
+                    <td>
+                        <select name="edital">
+                            <option value="0"></option>
+                            {%for e in edital%}
+                                <option value="{{e.id}}">{{e.numero_edital}}</option>
+                            {%endfor%}
+                        </select>
+                        
+                    </td>
+                </tr>
+                
+            </fieldset>
+            <tr><td>&nbsp;<input type="hidden" name="status" id="status"></td></tr>
+            <tr>
+                <td><input type="submit" value="Gerar Relatório"/></td>
+	        </tr>
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+

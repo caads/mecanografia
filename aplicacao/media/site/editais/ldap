@@ -1,0 +1,14 @@
+sudo easy_install python-ldap
+
+sudo easy_install django-auth-ldap
+
+acrescenta no INSTALLED_APPS:
+
+'django_auth_ldap'
+
+abaixo do bloco INSTALLED_APPS acrescentar as linhas:
+
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)

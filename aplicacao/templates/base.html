@@ -1,0 +1,109 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            {% block titulo %}Coordenação de Apoio ao Estudante{% endblock %}
+        </title>
+        {% block style %}
+            <link rel="stylesheet" type="text/css" href="/media/style.css" media="screen"/>
+        {% endblock style %}
+        {% block scripts %}
+            <script type="text/javascript" src="/media/jquery.js"></script>
+            <script type="text/javascript" src="/media/site.js"></script>
+        {% endblock scripts %}
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <div id="logo"></div>
+            	<div id="menu">
+                    <ul>
+                        {% if not user.is_anonymous %}                            
+                            <li> 
+                                <b>Bem vindo(a){%for u in username%}, {{ u.nome }}{%endfor%}! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                                <br>
+                                <i>Acessando com {{user}}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                            </li>
+                        {% endif %}
+                        <li class="active">
+                            <a href="/">Página Inicial</a>
+                        </li>
+                        {% if not user.is_anonymous %}                            
+                            <li class="active">
+                                <a href="/logout/">Logout</a>
+                            </li>                            
+                        {% else %}
+                            <li class="active">
+                                <a href="/login/">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+	        </div>
+            <div id="page">
+                <div id="header-pic"></div>
+	            <div id="content">
+		            <div class="post">
+			            <h2 class="title">{% block subtitle %}{% endblock subtitle %}</h2>
+			            <div class="entry">
+			                <br></br>
+			                <center>
+			                    <img src="/media/images/iff.gif" alt="IFF" title="Instituto Federal Fluminense"/>
+			                </center>
+			                <br/>
+			                {% block conteudo %}{% endblock %}
+			            </div>
+		            </div>
+	            </div>
+	            {% if not user.is_anonymous %}
+	            
+	                <div id="sidebar">
+    		            <div id="sidebar-bgtop"></div>
+    		            <div id="sidebar-content">
+    			            <div id="sidebar-bgbtm">
+    			                <ul>
+    				                <li>
+    					                <ul>
+    						                <li><a href="/bolsa/" title="Cadastro, alteração e exclusão de bolsa">Bolsa</a></li>
+    						                <li><a href="/relatorio/" title="Relatório">Relatório</a></li>
+    						                <li><a href="/edital/" title="Cadastro, alteração e exclusão de edital">Edital</a></li>
+    						                <li><a href="/setor/" title="Cadastro, alteração e exclusão de setor">Setor</a></li>
+    						                <li><a href="/bolsista/" title="Cadastro, alteração e exclusão de bolsista">Bolsista</a></li>
+    						                <li><a href="/ajuda_custo/" title="Cadastro, alteração e exclusão de Ajuda de Custo">Ajuda de Custo</a></li>
+    					                </ul>
+    				                </li>
+    			                </ul>
+    		                </div>
+    		            </div>
+                    </div>
+	                {% else %}
+    	            <div id="sidebar">
+    		            <div id="sidebar-bgtop"></div>
+    		            <div id="sidebar-content">
+    			            <div id="sidebar-bgbtm">
+    			                <ul>
+    				                <li>
+    					                <ul>
+    						                <li><a href="/login/" title="Login">Login</a></li>
+    						                
+    					                </ul>
+    				                </li>
+    			                </ul>
+    		                </div>
+    		            </div>
+                    </div>
+                {% endif %}
+    		<div style="clear:both; margin:0;"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <p> 
+            &copy; Coordenação de Apoio ao Estudante - IFF Campos-Centro
+            <br>
+            <a href="http://www.djangoproject.com/"> Made with Django. </a>
+        </p>
+    </div> 
+  </body>
+</html>

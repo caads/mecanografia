@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+    <center> Bolsa </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <br><br>
+    <table border="1" cellppading="0" cellspacing="0" align="center" width="100%">                     
+        <tr>
+            <th>Código:</th>
+            <th>Modalidade:</th>                
+            </tr>
+        {% for c in consulta%}
+            <tr>
+                <td> <a href="/editar_bolsa/{{c.id}}/">{{c.id}}</a></td>                
+                <td>{{c.modalidade}}</td>                
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br>
+    
+    <input type="button" value="Novo" onclick="location.href=/cadastrar_bolsa/">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="Voltar" onclick="history.go(-1)">
+{% endblock conteudo %}
+
+
+
+
+

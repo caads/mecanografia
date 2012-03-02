@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+    <center>Editais </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    
+    {%for e in edital%}
+        <b>{{e.numero_edital}}</b>
+        <br>
+        {{e.descricao}}
+        <br>
+        Edital: <b><a href="/media/{{e.arquivo}}">Acesse aqui</a></b>
+        <br>
+        Inscrições: <b><a href="/inscricao/{{e.id}}">Acesse aqui</a></b>
+    {%endfor%}
+    
+{% endblock conteudo %}

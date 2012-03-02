@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.nome.value=elemento.nome.value.toUpperCase();
+        }
+        function desabilitar(valor){
+            var elemento=document.form;
+            if (valor == "todos"){
+                document.getElementById("siape").style.display = 'none';
+                document.getElementById("nome").style.display = 'none';
+                document.getElementById("status").value = 'todos';
+            }
+            else if (valor == "siape"){
+                document.getElementById("siape").style.display = 'inline';
+                document.getElementById("siape").focus();
+                document.getElementById("nome").style.display = 'none';
+                document.getElementById("status").value = 'siape';
+            }
+            else if (valor == "nome"){
+                document.getElementById("nome").style.display = 'inline';
+                document.getElementById("nome").focus();
+                document.getElementById("siape").style.display = 'none';
+                document.getElementById("status").value = 'nome';
+            }
+        }
+        function num(dom){
+    	    dom.value=dom.value.replace(/\D/g,'');
+        }   
+           
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Edital </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <br><br>
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+               
+    <table border="1" cellppading="0" cellspacing="0" align="center" width="100%"> 
+        <tr>
+            <th>Edital</th>
+            <th>Bolsa</th>                
+            </tr>
+        {% for c in consulta%}
+            <tr>
+                <td> <a href="/editar_edital/{{c.numero_edital}}/">{{c.numero_edital}}</a></td>                
+                <td>{{c.bolsa}}</td>                
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br><br>
+    
+    <input type="button" value="Novo" onclick="location.href=/cadastrar_ajuda_custo/">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="Voltar" onclick="history.go(-1)">
+{% endblock conteudo %}
+
+
+
+
+

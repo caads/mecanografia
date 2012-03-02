@@ -1,0 +1,40 @@
+Sistema da Mecanografia
+
+- upload de arquivos de no máximo 8 MB
+
+- as coordenações devem ser vinculadas as diretorias previamente cadastradas, onde uma coordenação pertence a somente uma diretoria
+
+- os usuarios devem ser vinculados as coordenações
+
+- opção de salvar solicitação como rascunho (upload não é obrigatório, mesmo que o campo envio digital não esteja selecionado)
+
+- Permissões:
+        * Administrador - tudo
+        * Bolsista - executor parcial (não abre arquivos confidênciais e avaliações, não faz solicitação, não tem usuario no ldap)
+        * Servidor  e recepcionista da mecanografia - executor (recepcionista não tem usuario no ldap)
+
+- Será enviado e-mail para o solicitante quando a requisição for enviada (com os dados da solicitação, incluindo o número) e quando a requisição for concluída
+
+- A requisição pode ser cancelada pelo solicitante, quando a mesma não estiver em andamento ou finalizada. O administrador pode finalizar a qualquer momento, qd for cancelada, colocar justificativa (opcional)
+
+- Excluir o arquivo quando finalizar a solicitação
+
+- Estágios da solicitação:
+        * rascunho
+        * em andamento
+        * concluído
+        * entregue 
+                -> data e hora da entrega: sistema
+                -> nome do atendente: sistema
+                -> nome a quem foi entregue o material
+                
+- data/hora da solicitação e usuario das trocas de estado
+
+- após finalizado, se o usuario não buscar o material no prazo de 10 dias, será enviado um e-mail (enviar quantos e-mails até o cancelamento do pedido? destruição do material?)
+
+- Relatório por diretorias e coordenações (totais de cópias coloridas e preto e branco/total de solicitações)
+        * clicando na coordenação, mostra o total de cada usuario, no período solicitado
+        
+- Envio da logo da mecanografia (Ana mary)
+
+- http://reprografia.centro.iff.edu.br

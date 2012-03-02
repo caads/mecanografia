@@ -1,0 +1,3 @@
+data_hora = datetime.datetime.now()
+
+data_hora.strftime("%d/%m/%Y %H:%M")

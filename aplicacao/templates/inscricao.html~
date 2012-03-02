@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        $.noConflict( )
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.descricao.value=elemento.descricao.value.toUpperCase();
+        }        
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Inscrição </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+        <table align="center">
+            <fildset>                            
+                {{form.as_table}}
+	            <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Inscrever"/>
+                        <input type="button" value="Voltar" onclick="history.go(-1)">
+                    </td>
+	            </tr>
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+

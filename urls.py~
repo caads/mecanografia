@@ -17,8 +17,6 @@ urlpatterns = patterns('',
     url(r'^editar_bolsa/(?P<codigo>\d+)', 'ddiex_social.aplicacao.views.editar_bolsa', name='editar_bolsa'),
     url(r'^excluir_bolsa/(?P<codigo>\d+)', 'ddiex_social.aplicacao.views.excluir_bolsa', name='excluir_bolsa'),
     
-    url(r'^inscricao/(?P<codigo>\d+)', 'ddiex_social.aplicacao.views.inscricao', name='inscricao'),
-    
     
     url(r'^edital/', 'ddiex_social.aplicacao.views.edital', name='edital'),
     url(r'^cadastrar_edital/', 'ddiex_social.aplicacao.views.cadastrar_edital', name='cadastrar_edital'),

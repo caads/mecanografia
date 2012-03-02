@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            {% block titulo %}Sistema de Reprodução Gráfica{% endblock %}
+        </title>
+        {% block style %}
+            <link rel="stylesheet" type="text/css" href="/media/style.css" media="screen"/>
+        {% endblock style %}
+        {% block scripts %}
+            <script type="text/javascript" src="/media/jquery.js"></script>
+            <script type="text/javascript" src="/media/site.js"></script>
+        {% endblock scripts %}
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <div id="logo"></div>
+            	<div id="menu">
+                    <ul>
+                        {% if not user.is_anonymous %}                            
+                            <li> 
+                                <b>Bem vindo(a){%for u in username%}, {{ u.nome }}{%endfor%}! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+                                <br>
+                                <i>Acessando com {{user}}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                            </li>
+                        {% endif %}
+                        <li class="active">
+                            <a href="/">Página Inicial</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://www.camposcentro.blog.br/">Blog Campus Campos-Centro</a>
+                        </li>
+                        {% if not user.is_anonymous %}                            
+                            <li class="active">
+                                <a href="/logout/">Logout</a>
+                            </li>                            
+                        {% else %}
+                            <li class="active">
+                                <a href="/login/">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+	        </div>
+            <div id="page">
+                <div id="header-pic"></div>
+                <div class="post">
+	            <div id="content_login">
+		            
+			            <h2 class="title"><center>Login </center></h2>
+			            <div class="entry">
+			                <br></br>
+			                <center>
+			                    <img src="/media/images/iff.gif" alt="IFF" title="Instituto Federal Fluminense"/>
+			                </center>
+			                <br/>
+			                <center>
+    {% if user.is_authenticated %}
+        <p><b>Bem vindo, {{ user }}!</b></p>
+        <br>
+        <p><a href="/logout/">Logout</a></p>
+    {% else %}
+        {% if form.errors %}
+            <ul class="errorlist">
+                <li>
+                    Usuário e/ou senha incorreta. Tente novamente.
+                    <br>
+                    Caso persista o problema, entre em contato com a coordenação do evento através do número (00)0000-0000.
+                </li>
+            </ul>
+        {% endif %}
+        <form method="post" action="/login/">{% csrf_token %}
+            <div class="menu">
+                <table>
+                    <tr>
+                        <td>Login</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td>Senha</td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+            <input type="submit" value="Login" />
+        </form>                            
+    {% endif %}
+ </center>
+			            </div>
+		            </div>
+	            </div>
+    		<div style="clear:both; margin:0;"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <p> 
+            &copy; Coordenação Adjunta de Administração e Desenvolvimento de Sistemas - IFF Campos-Centro.
+            <br>
+            <a href="http://www.djangoproject.com/"> Made with Django. </a>
+        </p>
+    </div> 
+  </body>
+</html>

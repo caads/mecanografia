@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        $.noConflict( )
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.descricao.value=elemento.descricao.value.toUpperCase();
+        }
+        function ocultar(id){
+            if (id == 'id_setor_0'){
+                document.getElementById("diretoria").style.display = 'table-cell';
+                document.getElementById("diretoria1").style.display = 'table-cell';
+            }
+            else if (id == 'id_setor_1'){
+                document.getElementById("id_diretoria").options[0].selected = true;
+                document.getElementById("diretoria").style.display = 'none';
+                document.getElementById("diretoria1").style.display = 'none';
+                
+            }
+        } 
+        function load(status){
+            if (status == 'true'){
+                document.getElementById("diretoria").style.display = 'none';
+                document.getElementById("diretoria1").style.display = 'none';
+            }
+            else{
+                document.getElementById("diretoria").style.display = 'table-cell';
+                document.getElementById("diretoria1").style.display = 'table-cell';
+
+            }
+        }
+        
+       </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Editar Setor </center>
+{% endblock subtitle %}
+{% block conteudo %}
+<body onload="load('{{load}}')">
+    <form name="form" action="/editar_setor/{{codigo}}" enctype="multipart/form-data" method="post">
+        <table align="center">
+            <fildset>   
+                {{form.as_table}}                         
+                <tr><td>&nbsp;</td></tr>                            
+                 
+	            <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Alterar">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" value="Excluir" onclick="location.href='/excluir_setor/{{codigo}}/'">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" value="Voltar" onclick="history.go(-1)">
+                    </td>
+	            </tr>
+	    </table>
+    </form>   
+</body>
+{% endblock conteudo %}
+
+
+
+
+

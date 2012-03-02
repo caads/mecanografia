@@ -1,0 +1,31 @@
+criar os checkbox, com nome setor{{s.id}} ---ok---
+
+pegar todos os dados enviados pelo request post (ver se o django tem uma função parecida)
+
+pegar o total que a consulta vai resultar Setor.objects.count() - acho que é assim
+
+e testar para todos os setores
+
+criar uma lista, usando o range do count para gerar
+
+a cada iteração, mandar salvar, passando as variáveis
+
+
+
+variable   ||  value
+
+
+
+
+if 'setor'+str(i) in request.POST:
+            lista.append(request.post['setor'])
+            
+            
+Mostra os campos do post            
+print request.POST.items()
+
+
+f=VincularSetor()
+f.siape = request.POST['siape']
+f.setor = int(request.POST[setor_i])
+f.save()

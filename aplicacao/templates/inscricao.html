@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        $.noConflict( )
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.descricao.value=elemento.descricao.value.toUpperCase();
+        }        
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Inscrição </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+        <table align="center">
+            <fildset>                            
+                
+	            <tbody><tr><th><label for="id_matricula">Matricula:</label></th><td><input type="text" maxlength="50" name="matricula" id="id_matricula"></td></tr>
+<tr><th><label for="id_nome">Nome:</label></th><td><input type="text" maxlength="50" name="nome" id="id_nome"></td></tr>
+<tr><th><label for="id_documento_identificacao">RG:</label></th><td><input type="text" maxlength="50" name="documento_identificacao" id="id_documento_identificacao"></td></tr>
+<tr><th><label for="id_cpf">CPF:</label></th><td><input type="text" maxlength="50" name="cpf" id="id_cpf"></td></tr>
+<tr><th><label for="id_email">E-mail:</label></th><td><input type="text" maxlength="50" name="email" id="id_email"></td></tr>
+<tr><th><label for="id_telefone">Telefone:</label></th><td><input type="text" maxlength="50" name="telefone" id="id_telefone"></td></tr>
+<tr><th><label for="id_celular">Celular:</label></th><td><input type="text" maxlength="50" name="celular" id="id_celular"><input type="hidden" id="id_edital" value="{{codigo}}" name="edital"></td></tr>
+	            <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Inscrever">
+                        <input type="button" onclick="history.go(-1)" value="Voltar">
+                    </td>
+	            </tr>
+	    </tbody>
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+
